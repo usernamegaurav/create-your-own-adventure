@@ -2,18 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
+    android:background="@color/black"
     tools:context="com.example.android.sunshine.app.ForecastFragment">
 
     <ListView
         android:id="@+id/listview_forecast"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/material_blue_grey_800"
-        android:dividerHeight="@dimen/activity_horizontal_margin">
+        android:divider="@color/sunshine_blue"
+        android:dividerHeight="@dimen/activity_horizontal_margin_small">
 
     </ListView>
 
