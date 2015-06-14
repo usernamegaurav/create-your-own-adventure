@@ -1,11 +1,13 @@
 package com.example.android.sunshine.app;
 
+import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -30,13 +32,12 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Add 'general' pref_general, defined in the XML file
-        // TODO: Add pref_general from XML
-
-        // For all pref_general, attach an OnPreferenceChangeListener so the UI summary can be
-        // updated when the preference changes.
-        // TODO: Add pref_general
+        addPreferencesFromResource(R.xml.pref_general);
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            addPreferencesFromResource(R.xml.pref_general);
+        } else {
+            getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
+        }*/
     }
 
     /**
@@ -115,5 +116,15 @@ public class SettingsActivity extends PreferenceActivity
                 finish();
             }
         });
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SettingsFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_general);
+        }
     }
 }
