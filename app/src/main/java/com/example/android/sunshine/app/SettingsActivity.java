@@ -38,6 +38,7 @@ public class SettingsActivity extends PreferenceActivity
         } else {
             getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
         }*/
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
     }
 
     /**
