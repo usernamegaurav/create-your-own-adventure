@@ -5,4 +5,6 @@
 
     <string name="action_refresh" translatable="false">Refresh</string>
     <string name="title_activity_day_forecast">Day Forecast</string>
+
+    <string name="title_activity_settings">Settings</string>
 </resources>
