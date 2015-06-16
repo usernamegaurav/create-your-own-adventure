@@ -39,6 +39,7 @@ public class SettingsActivity extends PreferenceActivity
             getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
         }*/
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_units_key)));
     }
 
     /**
