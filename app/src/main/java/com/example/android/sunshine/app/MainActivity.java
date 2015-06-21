@@ -14,9 +14,41 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
+
+    @Override
+    protected void onStart() {
+        Log.i("MainActivity", "onStart");
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.i("MainActivity", "onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("MainActivity", "onDestroy");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i("MainActivity", "onResume");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.i("MainActivity", "onPause");
+        super.onPause();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("MainActivity", "onCreate");
         setContentView(R.layout.activity_main);
 
         ActionBar ab = getSupportActionBar();
