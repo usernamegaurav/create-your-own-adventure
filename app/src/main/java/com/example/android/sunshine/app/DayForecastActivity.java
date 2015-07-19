@@ -26,7 +26,7 @@ public class DayForecastActivity extends ActionBarActivity {
         setContentView(R.layout.activity_day_forecast);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayShowHomeEnabled(true);
-        ab.setIcon(R.mipmap.ic_launcher);
+        //ab.setIcon(R.mipmap.ic_launcher);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new DayForecastFragment())
