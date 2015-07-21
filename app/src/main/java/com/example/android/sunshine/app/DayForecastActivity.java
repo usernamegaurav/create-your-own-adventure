@@ -1,12 +1,11 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -110,6 +109,8 @@ public class DayForecastActivity extends ActionBarActivity {
             Intent intent = getActivity().getIntent();
             if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
                 mForecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+            }
+            if ( mForecastStr != null) {
                 ((TextView) rootView.findViewById(R.id.detail_text))
                         .setText(mForecastStr);
             }
