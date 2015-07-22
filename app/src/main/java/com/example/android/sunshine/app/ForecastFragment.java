@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.sunshine.app.data.WeatherContract;
@@ -93,18 +95,17 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateWeather();
-    }
-
     private void updateWeather() {
         FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = prefs.getString(getString(R.string.pref_location_key),
                 getString(R.string.pref_location_default));
         weatherTask.execute(location);
+    }
+    // since we read the location when we create the loader, all we need to do is restart things
+    void onLocationChanged( ) {
+        updateWeather();
+        getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
     }
 
     @Override
@@ -115,16 +116,20 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
         listView.setAdapter(mForecastAdapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String text = mForecastAdapter.getItem(position);
-//                Intent intent = new Intent(getActivity(), DayForecastActivity.class);
-//                intent.putExtra(Intent.EXTRA_TEXT, text);
-//                startActivity(intent);
-//            }
-//        });
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
+                if (cursor != null) {
+                    String locationSetting = Utility.getPreferredLocation(getActivity());
+                    Intent intent = new Intent(getActivity(), DayForecastActivity.class)
+                            .setData(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                                    locationSetting, cursor.getLong(COL_WEATHER_DATE)
+                            ));
+                    startActivity(intent);
+                }
+            }
+        });
         return rootView;
     }
 
